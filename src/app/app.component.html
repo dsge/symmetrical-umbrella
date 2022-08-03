@@ -15,9 +15,11 @@
     </div>
     <div class="col-sm">
       <ng-container *ngIf="results">
-        convertedAmount: {{results.convertedAmount}}<br />
-        directConversionEstimate: {{results.directConversionEstimate}}<br />
-        wasConvertedThroughEur: {{results.wasConvertedThroughEur}}
+        <div class="card">
+          <div class="card-body">
+            <app-exchange-results [results]="results" [inputs]="lastInputs"></app-exchange-results>
+          </div>
+        </div>
       </ng-container>
     </div>
   </div>

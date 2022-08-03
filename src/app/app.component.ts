@@ -9,7 +9,14 @@ import { CurrencyExchangeInputs, CurrencyExchangeResult } from './interfaces/com
 })
 export class AppComponent implements OnInit{
 
+  /**
+   * The results of the last successful currency exchange
+   */
   results: CurrencyExchangeResult | null = null;
+  /**
+   * The inputs of the last currency exchange
+   */
+  lastInputs: CurrencyExchangeInputs | null = null;
 
   loading = false;
 
@@ -23,10 +30,12 @@ export class AppComponent implements OnInit{
   onSubmit($event: CurrencyExchangeInputs): void {
     this.loading = true;
     this.results = null;
+    this.lastInputs = null;
 
     const sub = this.api.exchangeCurrency($event).subscribe({
       next: (value) => {
         this.results = value;
+        this.lastInputs = $event;
         sub.unsubscribe();
         this.loading = false;
       },

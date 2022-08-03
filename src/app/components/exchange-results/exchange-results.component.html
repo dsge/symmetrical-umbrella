@@ -1,0 +1,14 @@
+<div class="row" *ngIf="results && inputs">
+
+  <div class="col-sm-12 col-lg-12">
+    {{inputs.currencyAmount | number}} {{inputs.currencyFrom}} equals
+  </div>
+  <div class="col-sm-12 col-lg-12">
+    <span class="converted-amount">{{results.convertedAmount | number}} {{inputs.currencyTo}}</span>
+  </div>
+  <div class="col-sm-12 col-lg-12">
+    <ng-container *ngIf="results.wasConvertedThroughEur && results.directConversionEstimate">
+      <i>Note: This conversion was done through EUR. Direct conversion would have been {{calculateDirectConversionDifference() > 0 ? 'higher' : 'lower'}} by an estimated {{abs(calculateDirectConversionDifference()) | number}} {{inputs.currencyTo}}.</i>
+    </ng-container>
+  </div>
+</div>
