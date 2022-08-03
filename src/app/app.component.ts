@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from './services/api.service';
+import { CurrencyExchangeResult } from './interfaces/common'
 
 @Component({
   selector: 'app-root',
@@ -15,32 +16,22 @@ export class AppComponent implements OnInit{
       currencyAmount: new FormControl('', [Validators.required]),
   });
 
-  results: {
-    convertedAmount:number,
-    directConversionEstimate: number|null,
-    wasConvertedThroughEur:boolean
-  } | null = null;
+  results: CurrencyExchangeResult | null = null;
 
-  constructor(protected http: HttpClient) {
+  constructor(protected api: ApiService) {
 
   }
 
   ngOnInit(): void {
   }
 
-  private submitHttpCall() {
-    return this.http.get<any>('http://localhost:3000?' +
-      'from=' + this.form.value.currencyFrom +
-      '&to=' + this.form.value.currencyTo +
-      '&amount=' + this.form.value.currencyAmount
-    );
-  }
-
   onSubmit(): void {
     this.form.disable();
     this.results = null;
 
-    const sub = this.submitHttpCall().subscribe({
+    const formValues = this.form.value;
+
+    const sub = this.api.exchangeCurrency(formValues.currencyFrom || '', formValues.currencyTo || '', Number(formValues.currencyAmount)).subscribe({
       next: (value) => {
         this.results = value;
         sub.unsubscribe();
