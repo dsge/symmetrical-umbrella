@@ -1,8 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <app-exchange-form [disabled]="loading" (onFormSubmit)="onSubmit($event)"></app-exchange-form>
-
+      <h1>Currency Exchange</h1>
+      <p>Exchange between different currencies</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <app-exchange-form [disabled]="loading" (onFormSubmit)="onSubmit($event)"></app-exchange-form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
       <ng-container *ngIf="results">
         convertedAmount: {{results.convertedAmount}}<br />
         directConversionEstimate: {{results.directConversionEstimate}}<br />

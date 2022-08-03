@@ -1,26 +1,49 @@
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-sm-12 col-lg-3">
+      <div class="form-group">
+        <label for="currencyFrom">Exchange from: </label>
 
-  <label for="currencyFrom">currencyFrom: </label>
+        <select formControlName="currencyFrom" class="form-control">
+            <option value="">Choose a currency</option>
+            <option *ngFor="let currency of currencies$ | async | keyvalue" [ngValue]="currency.key">
+              {{currency.value}} ({{ currency.key }})
+          </option>
+        </select>
+      </div>
+    </div>
 
-  <select formControlName="currencyFrom">
-      <option value="">Choose a currency</option>
-      <option *ngFor="let currency of currencies$ | async | keyvalue" [ngValue]="currency.key">
-        {{currency.value}} ({{ currency.key }})
-    </option>
-  </select>
+    <div class="col-sm-12 col-lg-3">
+      <div class="form-group">
+        <label for="currencyTo">Exchange to: </label>
+        <select formControlName="currencyTo" id="currencyTo" class="form-control">
+            <option value="">Choose a currency</option>
+            <option *ngFor="let currency of currencies$ | async | keyvalue" [ngValue]="currency.key">
+              {{currency.value}} ({{ currency.key }})
+          </option>
+        </select>
+      </div>
+    </div>
 
-  <label for="currencyTo">currencyTo: </label>
-  <select formControlName="currencyTo" id="currencyTo">
-      <option value="">Choose a currency</option>
-      <option *ngFor="let currency of currencies$ | async | keyvalue" [ngValue]="currency.key">
-        {{currency.value}} ({{ currency.key }})
-    </option>
-  </select>
+    <div class="col-sm col-lg-3">
+      <div class="form-group">
+        <label for="currencyAmount">Amount: </label>
+        <input id="currencyAmount" type="text" formControlName="currencyAmount" class="form-control" placeholder="e.g. 10.5">
+      </div>
+    </div>
 
-  <label for="currencyAmount">currencyAmount: </label>
-  <input id="currencyAmount" type="text" formControlName="currencyAmount">
+    <div class="col-sm col-lg-3">
+      <label>&nbsp;</label>
+      <button type="submit" [disabled]="form.invalid || form.disabled" class="btn btn-primary btn-block">
 
-  <button type="submit" [disabled]="form.invalid || form.disabled">Submit</button>
+        <ng-container *ngIf="!form.disabled">Submit</ng-container>
+        <ng-container *ngIf="form.disabled">
+            <div class="spinner-border spinner-border-sm"></div>
+        </ng-container>
+      </button>
+    </div>
+
+  </div>
 
 </form>
