@@ -1,0 +1,15 @@
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <label for="currencyFrom">currencyFrom: </label>
+  <input id="currencyFrom" type="text" formControlName="currencyFrom">
+
+  <label for="currencyTo">currencyTo: </label>
+  <input id="currencyTo" type="text" formControlName="currencyTo">
+
+  <label for="currencyAmount">currencyAmount: </label>
+  <input id="currencyAmount" type="text" formControlName="currencyAmount">
+
+  <button type="submit" [disabled]="form.invalid || form.disabled">Submit</button>
+
+</form>

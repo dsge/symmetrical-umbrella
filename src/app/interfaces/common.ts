@@ -3,3 +3,9 @@ export interface CurrencyExchangeResult {
   directConversionEstimate: number|null,
   wasConvertedThroughEur:boolean
 }
+
+export interface CurrencyExchangeInputs {
+  currencyFrom: string;
+  currencyTo: string;
+  currencyAmount: number;
+}

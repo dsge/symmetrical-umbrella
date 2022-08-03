@@ -5,10 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ExchangeFormComponent } from './components/exchange-form/exchange-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ExchangeFormComponent
   ],
   imports: [
     BrowserModule,

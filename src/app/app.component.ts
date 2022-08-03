@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from './services/api.service';
-import { CurrencyExchangeResult } from './interfaces/common'
+import { CurrencyExchangeInputs, CurrencyExchangeResult } from './interfaces/common'
 
 @Component({
   selector: 'app-root',
@@ -10,13 +9,9 @@ import { CurrencyExchangeResult } from './interfaces/common'
 })
 export class AppComponent implements OnInit{
 
-  form = new FormGroup({
-      currencyFrom: new FormControl('', [Validators.required]),
-      currencyTo: new FormControl('', [Validators.required]),
-      currencyAmount: new FormControl('', [Validators.required]),
-  });
-
   results: CurrencyExchangeResult | null = null;
+
+  loading = false;
 
   constructor(protected api: ApiService) {
 
@@ -25,21 +20,19 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
-    this.form.disable();
+  onSubmit($event: CurrencyExchangeInputs): void {
+    this.loading = true;
     this.results = null;
 
-    const formValues = this.form.value;
-
-    const sub = this.api.exchangeCurrency(formValues.currencyFrom || '', formValues.currencyTo || '', Number(formValues.currencyAmount)).subscribe({
+    const sub = this.api.exchangeCurrency($event).subscribe({
       next: (value) => {
         this.results = value;
         sub.unsubscribe();
-        this.form.enable();
+        this.loading = false;
       },
       error: (err) => {
         sub.unsubscribe();
-        this.form.enable();
+        this.loading = false;
       }
     })
   }
