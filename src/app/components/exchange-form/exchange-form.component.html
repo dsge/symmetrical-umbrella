@@ -2,10 +2,21 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <label for="currencyFrom">currencyFrom: </label>
-  <input id="currencyFrom" type="text" formControlName="currencyFrom">
+
+  <select formControlName="currencyFrom">
+      <option value="">Choose a currency</option>
+      <option *ngFor="let currency of currencies$ | async | keyvalue" [ngValue]="currency.key">
+        {{currency.value}} ({{ currency.key }})
+    </option>
+  </select>
 
   <label for="currencyTo">currencyTo: </label>
-  <input id="currencyTo" type="text" formControlName="currencyTo">
+  <select formControlName="currencyTo" id="currencyTo">
+      <option value="">Choose a currency</option>
+      <option *ngFor="let currency of currencies$ | async | keyvalue" [ngValue]="currency.key">
+        {{currency.value}} ({{ currency.key }})
+    </option>
+  </select>
 
   <label for="currencyAmount">currencyAmount: </label>
   <input id="currencyAmount" type="text" formControlName="currencyAmount">
