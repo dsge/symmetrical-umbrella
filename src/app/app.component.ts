@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from './services/api.service';
 import { CurrencyExchangeInputs, CurrencyExchangeRecommendation, CurrencyExchangeResult } from './interfaces/common'
 import { Subject } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,9 @@ export class AppComponent implements OnInit{
   recommendationSelection$ = new Subject<CurrencyExchangeRecommendation>();
 
   loading = false;
+  @ViewChild('content') errorModalContents: any;
 
-  constructor(protected api: ApiService) {
+  constructor(protected api: ApiService, private modalService: NgbModal) {
 
   }
 
@@ -51,6 +53,7 @@ export class AppComponent implements OnInit{
       error: (err) => {
         sub.unsubscribe();
         this.loading = false;
+        this.modalService.open(this.errorModalContents);
       }
     })
   }
