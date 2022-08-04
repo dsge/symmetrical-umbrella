@@ -7,12 +7,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExchangeFormComponent } from './components/exchange-form/exchange-form.component';
 import { ExchangeResultsComponent } from './components/exchange-results/exchange-results.component';
+import { CurrencyRecommendationsComponent } from './components/currency-recommendations/currency-recommendations.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExchangeFormComponent,
-    ExchangeResultsComponent
+    ExchangeResultsComponent,
+    CurrencyRecommendationsComponent
   ],
   imports: [
     BrowserModule,

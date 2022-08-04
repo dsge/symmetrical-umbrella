@@ -9,3 +9,8 @@ export interface CurrencyExchangeInputs {
   currencyTo: string;
   currencyAmount: number;
 }
+
+export interface CurrencyExchangeRecommendation {
+  from: string,
+  to: string
+}

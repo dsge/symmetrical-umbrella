@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { CurrencyExchangeInputs } from 'src/app/interfaces/common';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { CurrencyExchangeInputs, CurrencyExchangeRecommendation } from 'src/app/interfaces/common';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -10,10 +10,13 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './exchange-form.component.html',
   styleUrls: ['./exchange-form.component.scss']
 })
-export class ExchangeFormComponent implements OnInit, OnChanges {
+export class ExchangeFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() disabled = false;
+  @Input() recommendationSelection: Observable<CurrencyExchangeRecommendation> | undefined;
+  protected recommendationSelectionSubscription: Subscription | undefined;
   @Output() onFormSubmit: EventEmitter<CurrencyExchangeInputs> = new EventEmitter();
+  protected formValueChangesSubscription: Subscription | undefined;
 
   protected currencyFromStorageKey = "currencyFrom";
   protected currencyToStorageKey = "currencyTo";
@@ -34,12 +37,27 @@ export class ExchangeFormComponent implements OnInit, OnChanges {
 
     this.loadInitialFormValues();
 
-    this.form.valueChanges.subscribe({
+    this.formValueChangesSubscription = this.form.valueChanges.subscribe({
       next: (values) => {
         this.storageService.set(this.currencyFromStorageKey, values.currencyFrom);
         this.storageService.set(this.currencyToStorageKey, values.currencyTo);
       }
     })
+  }
+
+  ngOnInit(): void {
+    if (this.recommendationSelection) {
+      this.recommendationSelectionSubscription = this.recommendationSelection.subscribe({
+        next: (value: CurrencyExchangeRecommendation) => {
+          if (value) {
+            this.form.patchValue({
+              currencyFrom: value.from,
+              currencyTo: value.to
+            })
+          }
+        }
+      })
+    }
   }
 
   /**
@@ -67,9 +85,6 @@ export class ExchangeFormComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes['disabled']) {
       if (changes['disabled'].currentValue) {
@@ -88,6 +103,15 @@ export class ExchangeFormComponent implements OnInit, OnChanges {
       currencyTo: formValues.currencyTo || '',
       currencyAmount: Number(formValues.currencyAmount)
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.recommendationSelectionSubscription) {
+      this.recommendationSelectionSubscription.unsubscribe();
+    }
+    if (this.formValueChangesSubscription) {
+      this.formValueChangesSubscription.unsubscribe();
+    }
   }
 
 }

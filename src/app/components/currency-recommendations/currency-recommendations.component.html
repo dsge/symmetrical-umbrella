@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h5>Recommended exchanges</h5>
+  </div>
+  <div class="col-sm-12">
+
+    <div class="row">
+      <div class="col-sm-12 col-md-3" *ngFor="let item of currencyRecommendations$ | async">
+        <button type="button" class="btn btn-block btn-secondary" (click)="selectRecommendation(item)"><strong>{{item.from}}</strong> to <strong>{{item.to}}</strong></button>
+      </div>
+    </div>
+
+  </div>
+</div>

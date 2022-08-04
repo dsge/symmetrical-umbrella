@@ -9,11 +9,11 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
-          <app-exchange-form [disabled]="loading" (onFormSubmit)="onSubmit($event)"></app-exchange-form>
+          <app-exchange-form [disabled]="loading" (onFormSubmit)="onSubmit($event)" [recommendationSelection]="recommendationSelection$"></app-exchange-form>
         </div>
       </div>
     </div>
-    <div class="col-sm">
+    <div class="col-sm-12">
       <ng-container *ngIf="results">
         <div class="card">
           <div class="card-body">
@@ -21,6 +21,14 @@
           </div>
         </div>
       </ng-container>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <app-currency-recommendations (onSelectRecommendation)="onSelectRecommendation($event)"></app-currency-recommendations>
+          </div>
+        </div>
     </div>
   </div>
 </div>

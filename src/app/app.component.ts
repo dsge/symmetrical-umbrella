@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
-import { CurrencyExchangeInputs, CurrencyExchangeResult } from './interfaces/common'
+import { CurrencyExchangeInputs, CurrencyExchangeRecommendation, CurrencyExchangeResult } from './interfaces/common'
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,10 @@ export class AppComponent implements OnInit{
    * The inputs of the last currency exchange
    */
   lastInputs: CurrencyExchangeInputs | null = null;
+  /**
+   * Emits when the user clicks on a currency exchange recommendation on the UI
+   */
+  recommendationSelection$ = new Subject<CurrencyExchangeRecommendation>();
 
   loading = false;
 
@@ -25,6 +30,10 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
+  }
+
+  onSelectRecommendation($event: CurrencyExchangeRecommendation) {
+    this.recommendationSelection$.next($event);
   }
 
   onSubmit($event: CurrencyExchangeInputs): void {
