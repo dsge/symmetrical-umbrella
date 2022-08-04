@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExchangeFormComponent } from './components/exchange-form/exchange-form.component';
 import { ExchangeResultsComponent } from './components/exchange-results/exchange-results.component';
 import { CurrencyRecommendationsComponent } from './components/currency-recommendations/currency-recommendations.component';
+import { ExchangeHistoryComponent } from './components/exchange-history/exchange-history.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CurrencyRecommendationsComponent } from './components/currency-recommen
     ExchangeFormComponent,
     ExchangeResultsComponent,
     CurrencyRecommendationsComponent,
+    ExchangeHistoryComponent,
   ],
   imports: [
     BrowserModule,

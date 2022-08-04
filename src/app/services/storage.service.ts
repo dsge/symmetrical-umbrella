@@ -12,11 +12,11 @@ export class StorageService {
   }
 
   public set(key: string, value: any) {
-    this.storage[key] = value;
+    this.storage[key] = JSON.stringify(value);
   }
 
   public get(key: string) {
-    return this.storage[key] ?? undefined;
+    return this.storage[key] ? JSON.parse(this.storage[key]) : undefined;
   }
 
 }

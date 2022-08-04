@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h5>Previous exchanges</h5>
+  </div>
+  <div class="col-sm-12">
+
+    <div class="row" *ngIf="exchangeHistory$">
+      <div class="col-sm-12 col-lg-12">
+
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let item of (exchangeHistory$ | async)?.reverse()">
+            {{item.inputs.currencyAmount | number}} {{item.inputs.currencyFrom}} equals {{item.results.convertedAmount | number}} {{item.inputs.currencyTo}}
+            <button type="button" class="btn btn-small btn-primary pull-right" (click)="onExchangeAgainPressed(item)">Exchange again</button>
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

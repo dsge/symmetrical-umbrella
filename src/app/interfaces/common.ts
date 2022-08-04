@@ -12,5 +12,11 @@ export interface CurrencyExchangeInputs {
 
 export interface CurrencyExchangeRecommendation {
   from: string,
-  to: string
+  to: string,
+  amount?: number,
+}
+
+export interface ExchangeHistoryItem {
+  inputs: CurrencyExchangeInputs,
+  results: CurrencyExchangeResult,
 }

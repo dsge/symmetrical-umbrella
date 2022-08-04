@@ -54,6 +54,9 @@ export class ExchangeFormComponent implements OnInit, OnChanges, OnDestroy {
               currencyFrom: value.from,
               currencyTo: value.to
             })
+            if (value.amount) {
+              this.form.patchValue({currencyAmount: value.amount.toString()})
+            }
           }
         }
       })

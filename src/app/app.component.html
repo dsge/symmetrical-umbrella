@@ -30,6 +30,15 @@
           </div>
         </div>
     </div>
+
+    <div class="col-sm-12 col-lg-12" *ngIf="(exchangeHistory$ | async)?.length">
+      <div class="card">
+        <div class="card-body">
+          <app-exchange-history [exchangeHistory]="exchangeHistory$" (onExchangeAgain)="onExchangeAgain($event)"></app-exchange-history>
+        </div>
+      </div>
+  </div>
+
   </div>
 </div>
 
