@@ -10,7 +10,7 @@ export class ApiService {
   constructor(protected http: HttpClient) { }
 
   public exchangeCurrency(values: CurrencyExchangeInputs) {
-    return this.http.get<CurrencyExchangeResult>('http://localhost:3000?' +
+    return this.http.get<CurrencyExchangeResult>(location.protocol + '//' + location.hostname + ':3000?' +
       'from=' + values.currencyFrom +
       '&to=' + values.currencyTo +
       '&amount=' + values.currencyAmount
