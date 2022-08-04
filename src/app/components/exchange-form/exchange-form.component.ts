@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { CurrencyExchangeInputs, CurrencyExchangeRecommendation } from 'src/app/interfaces/common';
 import { CurrencyService } from 'src/app/services/currency.service';
@@ -27,7 +27,7 @@ export class ExchangeFormComponent implements OnInit, OnChanges, OnDestroy {
   form = new FormGroup({
     currencyFrom: new FormControl('', [Validators.required]),
     currencyTo: new FormControl('', [Validators.required]),
-    currencyAmount: new FormControl('', [Validators.required]),
+    currencyAmount: new FormControl('', [Validators.required, Validators.pattern('^[0-9]\\d*(\\.\\d{1,10})?$')]),
   });
 
   constructor(protected currencyService: CurrencyService, protected storageService: StorageService) {

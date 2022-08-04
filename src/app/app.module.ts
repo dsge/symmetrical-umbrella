@@ -14,7 +14,7 @@ import { CurrencyRecommendationsComponent } from './components/currency-recommen
     AppComponent,
     ExchangeFormComponent,
     ExchangeResultsComponent,
-    CurrencyRecommendationsComponent
+    CurrencyRecommendationsComponent,
   ],
   imports: [
     BrowserModule,
